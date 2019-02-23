@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.store.mapper.OrderMapper">
+	<!--插入购物车数据  -->
+	<!--Integer insert(Address address)-->
+	<insert id="insertOrder" useGeneratedKeys="true" keyProperty="oid">
+		insert into t_order(
+			uid,receiver,phone,address,
+			total_price,state,order_time,pay_time,
+			created_user,created_time
+		)values(
+			#{uid},#{receiver},#{phone},#{address},
+			#{totalPrice},#{state},#{orderTime},#{payTime},
+			#{createdUser},#{createdTime}
+		)
+	</insert>
+	<!--插入订单商品数据  -->
+	<!--Integer insertOrderItem(OrderItem orderItem)-->
+	<insert id="insertOrderItem">
+		insert into t_order_item(
+			oid,goods_id,goods_title,
+			goods_image,goods_price,goods_num,
+			created_user,created_time
+		)values(
+			#{oid},#{goodsId},#{goodsTitle},
+			#{goodsImage},#{goodsPrice},#{goodsNum},
+			#{createdUser},#{createdTime}
+		)
+	</insert>
+	<select id="findByOid" resultMap="orderVOMap">
+		select 
+			t_order.oid,uid,receiver,phone,
+			address,total_price,state,
+			order_time,pay_time,goods_id,
+			goods_title,goods_image,goods_price,
+			goods_num
+		from 
+			t_order
+		left join 
+			t_order_item 
+		on 
+			t_order.oid=t_order_item.oid
+	   where
+	   		 t_order.oid=#{oid}
+	</select>
+	<resultMap type="cn.tedu.store.vo.OrderVO" id="orderVOMap">
+		<id column="oid" property="oid"></id>
+		<result column="uid" property="uid"></result>
+		<result column="receiver" property="receiver"></result>
+		<result column="phone" property="phone"></result>
+		<result column="address" property="address"></result>
+		<result column="total_price" property="totalPrice"></result>
+		<result column="state" property="state"></result>
+		<result column="order_time" property="orderTime"></result>
+		<result column="pay_time" property="payTime"></result>
+		<collection property="orderItems" ofType="cn.tedu.store.entity.OrderItem">
+			<result column="goods_id" property="goodsId"></result>
+			<result column="goods_title" property="goodsTitle"></result>
+			<result column="goods_image" property="goodsImage"></result>
+			<result column="goods_price" property="goodsPrice"></result>
+			<result column="goods_num" property="goodsNum"></result>
+		</collection>
+	</resultMap>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

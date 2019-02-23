@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.store.mapper.CartMapper">
+	<!--插入购物车数据  -->
+	<!--Integer insert(Address address)-->
+	<insert id="insert">
+		insert into t_cart(
+			uid,gid,num,created_user,
+			created_time
+		)values(
+			#{uid},#{gid},#{num},
+			#{createdUser},
+			#{createdTime}
+		)
+	</insert>
+	<!--修改购物车商品的数量  -->
+	<!--Integer updateNum(Integer num,String modifiedUser,Date modifiedTime,Integer cid)-->
+	<update id="updateNum">
+		update t_cart set num=#{num},modified_user=#{modifiedUser},
+		modified_time=#{modifiedTime} 
+		where cid=#{cid}
+	</update>
+	<!--通过uid和gid找到购物车商品  -->
+	<!--Cart findByUidAndGid(Integer uid,Long gid)-->
+	<select id="findByUidAndGid" resultType="cn.tedu.store.entity.Cart">
+		select cid,num from t_cart where uid=#{uid} and gid=#{gid}
+	</select>
+	<!-- 查询购物车商品信息 -->
+	<!-- List<CartVO> findListCartByUid(Integer uid) -->
+	<select id="findListCartByUid" resultType="cn.tedu.store.vo.CartVO">
+		select 
+			cid,gid,t_cart.num,
+			t_goods.title,t_goods.image,
+			t_goods.price
+		from 
+			t_cart 
+		left join 
+			t_goods 
+		on 
+			t_cart.gid=t_goods.id
+	   where
+	   		 uid=#{uid}
+	   order by
+	   		t_cart.modified_time desc
+	</select>
+	<!--查询购物车数量和用户  -->
+	<!-- Cart findByCid(Integer cid) -->
+	<select id="findByCid" resultType="cn.tedu.store.entity.Cart">
+		select uid,num from t_cart where cid=#{cid}
+	</select>
+	<!--查询某些id的购物车数据  -->
+	<!-- List<CartVO> findByCids(Integer[] cids)-->
+	<select id="findByCids" resultType="cn.tedu.store.vo.CartVO">
+		select 
+			cid,gid,t_cart.num,
+			t_goods.title,t_goods.image,
+			t_goods.price
+		from 
+			t_cart 
+		left join 
+			t_goods 
+		on 
+			t_cart.gid=t_goods.id
+	   where
+	   		 cid in (
+	   		 <foreach collection="array" item="cid" separator=",">
+	   		 	#{cid}
+	   		 </foreach>
+	   		 )
+	   order by
+	   		t_cart.modified_time desc 
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
