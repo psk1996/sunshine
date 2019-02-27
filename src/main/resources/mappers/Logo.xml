@@ -7,7 +7,7 @@
 	<insert id="addNew">
 		INSERT into
 		 logo(logoName,URL,paixu,zhuangtai)
-		value (logoName=#{logoName},URL=#{URL},paixu=#{paixu},zhuangtai=0)
+		value (#{logoName},#{URL},#{paixu},#{zhuangtai})
 	</insert>
 	<!--删除数据-->
 	<!-- cn.tedu.store.mapper.LogoMapper：Integer deleteOne(Intger id);-->
@@ -21,13 +21,13 @@
 	</update>
 	<!--根据id查询结果-->
 	<!-- cn.tedu.store.mapper.LogoMapper： Integer updateOne(@Param("id")Integer id);-->
-	<select id="selectOne">
+	<select id="selectOne" resultType="cn.tedu.store.entity.Logo">
 		select
 		 id,logoName,URL,paixu,zhuangtai
 		from
 		logo
 		where
-		id=#{id}
+		id = #{id}
 	</select>
 
 </mapper>

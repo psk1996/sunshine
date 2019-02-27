@@ -1,9 +1,9 @@
-package cn.tedu.store.mapper;
+package cn.tedu.store.service;
 
 import cn.tedu.store.entity.Logo;
-import org.apache.ibatis.annotations.Param;
 
-public interface LogoMapper {
+
+public interface ILogoService {
 
     /**
      * //插入新的一条数据
@@ -24,15 +24,14 @@ public interface LogoMapper {
      * @param id
      * @return
      */
-    Integer updateOne(@Param("id")Integer id);
+    Integer updateOne(Integer id);
 
     /**
      * 根据Logo名字查询一条数据
      * @param id
      * @return
      */
-    Logo selectOne(@Param("id") Integer id);
-
+    Logo selectOne(Integer id);
 
 
 }

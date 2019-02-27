@@ -32,7 +32,13 @@ public class InterceptorConfiguration implements WebMvcConfigurer {
 		list.add("/web/login.html");
 		list.add("/web/index.html");
 		list.add("/web/product.html");
-		registry.addInterceptor(interceptor).addPathPatterns("/**").excludePathPatterns(list);
+		list.add("/Logo/**");
+		list.add("/static/**");
+		list.add("/swagger-ui.html");
+		list.add("/v2/api-docs");
+		list.add("/swagger-resources/*");
+		list.add("/webjars/**");
+		//registry.addInterceptor(interceptor).addPathPatterns("/**").excludePathPatterns(list);
 		
 	}
 
