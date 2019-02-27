@@ -62,5 +62,11 @@ public class AddressMapperTestCase {
 		Integer row=addressMapper.deleteByAid(8);
 		System.err.println("row:"+row);
 	}
-	
+
+	@Test
+	public void suanfa(){
+		int avg = 10;
+		double sum = 1.9;
+		double number = 3.14*avg*avg*sum;
+	}
 }

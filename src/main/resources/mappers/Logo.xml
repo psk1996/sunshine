@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.tedu.store.mapper.LogoMapper">
+	<!--插入新的一条数据-->
+	<!-- cn.tedu.store.mapper.LogoMapper：Integer addNew(Logo logo);-->
+	<insert id="addNew">
+		INSERT into
+		 logo(logoName,URL,paixu,zhuangtai)
+		value (logoName=#{logoName},URL=#{URL},paixu=#{paixu},zhuangtai=0)
+	</insert>
+	<!--删除数据-->
+	<!-- cn.tedu.store.mapper.LogoMapper：Integer deleteOne(Intger id);-->
+	<delete id="deleteOne">
+		delete  from  logo where id=#{id}
+	</delete>
+	<!--根据id修改显示隐藏-->
+	<!-- cn.tedu.store.mapper.LogoMapper： Integer updateOne(@Param("id")Integer id);-->
+	<update id="updateOne">
+		update logo set zhuangtai=1 where id=#{id}
+	</update>
+	<!--根据id查询结果-->
+	<!-- cn.tedu.store.mapper.LogoMapper： Integer updateOne(@Param("id")Integer id);-->
+	<select id="selectOne">
+		select
+		 id,logoName,URL,paixu,zhuangtai
+		from
+		logo
+		where
+		id=#{id}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

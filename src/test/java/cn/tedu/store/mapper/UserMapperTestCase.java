@@ -21,6 +21,8 @@ public class UserMapperTestCase {
 		user.setUsername("zhangsan");
 		user.setPassword("123454");
 		userMapper.addnew(user);
+
+
 		System.err.println("插入成功");
 	}
 	@Test
